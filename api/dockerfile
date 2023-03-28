@@ -1,11 +1,11 @@
-FROM node:lts-alpine
-RUN mkdir -p /home/node/app
-WORKDIR /home/node/app
-COPY package.json package-lock.json
-RUN apk add --no-cache git
-COPY . /home/node/app/
-RUN chown -R node:node /home/node
-RUN npm ci
-USER node
-ENTRYPOINT [ "node", "ace", "serve", "--watch" ]
+# FROM node:lts-alpine
+# RUN mkdir -p /home/node/app
+# WORKDIR /home/node/app
+# COPY package.json package-lock.json
+# RUN apk add --no-cache git
+# COPY . /home/node/app/
+# RUN chown -R node:node /home/node
+# RUN npm ci
+# USER node
+# ENTRYPOINT [ "node", "ace", "serve", "--watch" ]
 # https://stackoverflow.com/questions/70810840/connect-econnrefused-127-0-0-13306-in-adonis-5-docker-mysql

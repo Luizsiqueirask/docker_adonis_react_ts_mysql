@@ -22,7 +22,10 @@ export default class Person extends BaseModel {
   public age: number
 
   @column()
-  public gender: string  
+  public gender: string 
+
+  @column()
+  public user_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

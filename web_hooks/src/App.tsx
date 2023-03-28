@@ -11,6 +11,8 @@ import PetShow from "./pages/pet/PetShow";
 import PetStore from "./pages/pet/PetStore";
 import PetUpdate from "./pages/pet/PetUpdate";
 import PetDelete from "./pages/pet/PetDelete";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
 
 function App() {
 
@@ -33,7 +35,11 @@ function App() {
           <Route path="add-pet" element={<PetStore />} />
           <Route path="update-pet/:id" element={<PetUpdate />} />
           <Route path="destroy-pet/:id" element={<PetDelete />} />        
-        </Route>        
+        </Route>
+        <Route path="/auth">
+          <Route path="register" element={<Register />}></Route>
+          <Route path="login" element={<Login />}></Route>
+        </Route>    
     </Routes>
   )
 }

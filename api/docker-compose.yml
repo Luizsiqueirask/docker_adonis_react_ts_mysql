@@ -21,22 +21,20 @@ services:
 
   database:
     container_name: adonis_sql
-    image: mysql:latest
+    image: postgres:latest
     # command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports: 
-      - 3306:3306
+      - "${PG_PORT}:5432"
     expose:
-      - 3306
+      - ${PG_PORT}
     environment:
-      MYSQL_HOST: localhost
-      MYSQL_DATABASE: adonis
-      MYSQL_USER: adonis
-      MYSQL_PASSWORD: adonis
-      MYSQL_ROOT_PASSWORD: adonis
-      MYSQL_TCP_PORT: 3306
+      POSTGRES_HOST: ${PG_HOST}
+      POSTGRES_DATABASE: ${PG_DB_NAME}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_TCP_PORT: ${PG_PORT}
 
     volumes:
-      - ./database/docker/container_mysql:/var/lib/mysql
-      
-  
+      # - ./database/docker/container_postgres:/var/lib/postgres
+      - ${PG_DATA_VOLUME}
