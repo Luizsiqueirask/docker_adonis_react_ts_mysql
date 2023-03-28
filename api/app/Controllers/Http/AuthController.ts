@@ -13,10 +13,16 @@ export default class AuthController {
         return user
     }
 
-    public async login({request, auth}: HttpContextContract){
-        const { email, password } = request.only(['email', 'password'])
-        const token = await auth.use('api').attempt(email, password)
-        return token.toJSON()
+    public async login({request, response, auth}: HttpContextContract){
+        const email = request.input('email')
+        const password = request.input('password')
+        
+        try {
+            const token = await auth.use('api').attempt(email, password)
+            return token
+        } catch {
+            return response.unauthorized('Invalid credentials')
+        }
     }
 
     public async logout({ response, auth }: HttpContextContract) {

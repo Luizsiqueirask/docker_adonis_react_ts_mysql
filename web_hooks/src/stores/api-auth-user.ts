@@ -12,11 +12,15 @@ const service:any = {}
 export default function AuthAPI(){
    
     service.register = async (auth: Auth) => {
-        return await http.post('/auth/regiter', auth);
+        return await http.post('/regiter', auth);
     }
 
     service.login = async (auth: Auth) => {
-        return await http.post('/auth/login', auth);
+        return await http.post('/login', auth);
+    }
+
+    service.logout = async (auth: Auth) => {
+        return await http.post('/logout', auth);
     }
     
     return service

@@ -32,7 +32,7 @@ Route.group(() => {
 
   Route.resource('/person', 'PeopleController').apiOnly()
   Route.resource('/pet', 'PetsController').apiOnly()
-  Route.post('/register', 'AuthController')
-  Route.post('/login', 'AuthController')
-  //Route.post('/pet/:petsId/person', 'PetsController.store')
+  Route.post('/register', 'AuthController.register')
+  Route.post('/login', 'AuthController.login')
+  Route.post('/logout', 'AuthController.logout')
 }).prefix('/api')
