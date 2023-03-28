@@ -5,7 +5,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const api = api_auth_user()
 
-function Register(){
+export default function Register(){
 
     const [user, setUser] = useState({ email: "", password: ""})
     const navigate = useNavigate();
@@ -33,12 +33,10 @@ function Register(){
             console.log(error);
         })
         return navigate("/auth/register");
-
     }
 
-
     return (
-        <section className="vh-100" style={{ background: "#eee" }}>
+        <section className="vh-100" style={{ backgroundColor: "#eee" }}>
             <div className="container h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-lg-12 col-xl-11">
@@ -55,7 +53,7 @@ function Register(){
                                                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
                                                     <label className="form-label" htmlFor="form3Example3c">Your Email</label>
-                                                    <input type="email" id="form3Example3c" className="form-control" />
+                                                    <input type="email" id="form3Example3c" name="email" onChange={handleInputChange} className="form-control" />
                                                 </div>
                                             </div>
 
@@ -63,7 +61,7 @@ function Register(){
                                                 <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
                                                     <label className="form-label" htmlFor="form3Example4c">Password</label>
-                                                    <input type="password" name="password" id="form3Example4c" className="form-control" />
+                                                    <input type="password" name="password" onChange={handleInputChange} id="form3Example4c" className="form-control" />
                                                 </div>
                                             </div>
 
@@ -71,8 +69,14 @@ function Register(){
                                                 <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
                                                     <label className="form-label" htmlFor="form3Example4cd">Repeat your password</label>
-                                                    <input type="password" name="cpassword" id="form3Example4cd" className="form-control" />
+                                                    <input type="password" name="cpassword" onChange={handleInputChange} id="form3Example4cd" className="form-control" />
                                                 </div>
+                                            </div>
+
+                                            <div className="form-check d-flex justify-content-center mb-2">
+                                                <label className="form-check-label" htmlFor="form2Example3">
+                                                Your <a href={'/auth/login'}>Login</a> here!
+                                                </label>
                                             </div>
 
                                             <div className="form-check d-flex justify-content-center mb-5">
@@ -104,5 +108,3 @@ function Register(){
         </section>
     )
 }
-
-export default Register

@@ -1,18 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 
-import api_person_costume from '../../stores/api-person-costume'
-import { Link, useParams } from 'react-router-dom';
+import api_auth_user from '../../stores/api-auth-user'
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
-const api = api_person_costume()
+const api = api_auth_user()
 
-function Login(){
+
+export default function Login(){
+
+    const [user, setUser] = useState({ email: "", password: ""})
+    const navigate = useNavigate();
+
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = event.target
+        setUser({...user, [name]: value})
+    }
+
+    const onSaveUser = () => {
+        const userData:any = {
+            email: user.email,
+            password: user.password
+        }
+        api.Login(userData).then((response: any) => {
+            setUser({
+                email: response.data.email,
+                password: response.data.password 
+            })
+            console.log(response.data)
+        })
+        .catch((error: Error) => {
+            console.log(error);
+        })
+        return navigate("/dashboard");
+    }
     
     return (
-        <section className="vh-100" style={{ backgroundColor: "#eee;" }}>
+        <section className="vh-100" style={{ backgroundColor: "#eee" }}>
             <div className="container h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-lg-12 col-xl-11">
-                        <div className="card text-black" style={{ borderRadius: "25px;"}}>
+                        <div className="card text-black" style={{ borderRadius: "25px"}}>
                             <div className="card-body p-md-5">
                                 <div className="row justify-content-center">
                                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
@@ -25,7 +52,7 @@ function Login(){
                                                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
                                                     <label className="form-label" htmlFor="form3Example3c">Email</label>
-                                                    <input type="email" id="form3Example3c" className="form-control" />
+                                                    <input type="email" id="form3Example3c" onChange={handleInputChange} className="form-control" />
                                                 </div>
                                             </div>
 
@@ -33,12 +60,18 @@ function Login(){
                                                 <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                 <div className="form-outline flex-fill mb-0">
                                                     <label className="form-label" htmlFor="form3Example4c">Password</label>
-                                                    <input type="password" id="form3Example4c" className="form-control" />
+                                                    <input type="password" id="form3Example4c" onChange={handleInputChange} className="form-control" />
                                                 </div>
                                             </div>
 
+                                            <div className="form-check d-flex justify-content-center mb-3">
+                                                <label className="form-check-label" htmlFor="form2Example3">
+                                                To <a href={'/auth/register'}>Register</a> new account 
+                                                </label>
+                                            </div>
+
                                             <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                <button type="button" className="btn btn-primary btn-lg">Login</button>
+                                                <button type="button" className="btn btn-primary btn-lg" onClick={onSaveUser}>Login</button>
                                             </div>
 
                                         </form>
@@ -59,5 +92,3 @@ function Login(){
         </section>
     )
 }
-
-export default Login
