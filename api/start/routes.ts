@@ -29,10 +29,13 @@ Route.group(() => {
   Route.get('/', async () => {
     return { api: 'Api Router' }
   })
-
   Route.resource('/person', 'PeopleController').apiOnly()
   Route.resource('/pet', 'PetsController').apiOnly()
+
+}).prefix('/api')
+
+Route.group(() => {
   Route.post('/register', 'AuthController.register')
   Route.post('/login', 'AuthController.login')
   Route.post('/logout', 'AuthController.logout')
-}).prefix('/api')
+}).prefix('/api/auth')
